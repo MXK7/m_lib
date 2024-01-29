@@ -9,7 +9,7 @@ AR          = ar rc
 RANLIB      = ranlib
 RM          = rm -rf
 
-SRC_FILES  += m_error
+SRC_FILES  += m_error m_free_array
 
 SRC         = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ         = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
