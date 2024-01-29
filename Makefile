@@ -41,12 +41,6 @@ $(OBJ_DIR)%.o:	$(SRC_DIR)%.c | $(OBJ_CACHE)
 
 $(OBJ_CACHE):
 					@mkdir -p $(OBJ_DIR)
-					@mkdir -p $(OBJ_DIR)$(LEXING_DIR)
-					@mkdir -p $(OBJ_DIR)$(PARSING_DIR)
-					@mkdir -p $(OBJ_DIR)$(EXPDING_DIR)
-					@mkdir -p $(OBJ_DIR)$(BUILTIN_DIR)
-					@mkdir -p $(OBJ_DIR)$(SIGNAL_DIR)
-					@mkdir -p $(OBJ_DIR)$(EXE_DIR)
 
 clean:
 					$(RM) $(OBJ_DIR)
