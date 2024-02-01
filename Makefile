@@ -9,7 +9,7 @@ AR          = ar rc
 RANLIB      = ranlib
 RM          = rm -rf
 
-SRC_FILES  += m_error m_free_array
+SRC_FILES  += m_error m_free_array m_print_tab
 
 SRC         = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ         = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -36,14 +36,14 @@ $(OBJ_CACHE):
 clean:
 		$(RM) $(OBJ_DIR)
 		$(RM) $(OBJ_CACHE)
-		@echo "m_lib object files cleaned!"
+		@echo "m_lib object files cleaned."
 
 fclean: clean
 		$(RM) $(NAME)
-		@echo "m_lib archive files cleaned!"
+		@echo "m_lib archive files cleaned."
 
 re: fclean all
-		@echo "Cleaned and rebuilt everything for m_lib!"
+		@echo "Cleaned and rebuilt everything for m_lib."
 
 .PHONY: all clean fclean re
 
