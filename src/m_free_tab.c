@@ -1,6 +1,6 @@
 #include "m.h"
 
-void	m_free_array(char **tab)
+void	m_free_tab(char **tab)
 {
 	int	i;
 

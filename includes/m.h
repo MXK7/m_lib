@@ -1,6 +1,8 @@
 #ifndef M_H
 # define M_H
 
+# include "ft_printf.h"
+# include "libft.h"
 # include <stdio.h>
 # include <stdlib.h>
 # include <unistd.h>
@@ -12,8 +14,13 @@
 # define M_EXIT_FAILURE 1 /* Failing exit status.  */
 # define M_EXIT_SUCCESS 0 /* Successful exit status.  */
 
-void	m_error(char *str);
 void	m_print_tab(char **tab);
-void	m_free_array(char **tab);
+void	m_free_tab(char **tab);
+char	**m_strdup_tab(char **tab);
+size_t	m_strlen_tab(char **tab);
+
+void	m_error(char *str);
+char	*m_str_tolower(char *str);
+char	*m_str_toupper(char *str);
 
 #endif

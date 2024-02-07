@@ -1,13 +1,7 @@
-NAME        = m_lib.a
-INCLUDES    = includes/
-SRC_DIR     = src/
+NAME        = ft_printf.a
+INCLUDES    = ./../../
 OBJ_DIR     = obj/
-
-LIBFT_DIR   = $(INCLUDES)src/libft/
-LIBFT       = $(LIBFT_DIR)libft.a
-
-FTPRINTF = $(INCLUDES)src/ft_printf/
-FTPRINTF_DIR = $(FTPRINTF)ft_printf.a
+SRC_DIR		= src/
 
 CC          = gcc
 CFLAGS      = -Wall -Wextra -Werror -g3
@@ -15,7 +9,11 @@ AR          = ar rc
 RANLIB      = ranlib
 RM          = rm -rf
 
-SRC_FILES  += m_error m_free_array m_print_tab m_strdup_tab m_strlen_tab m_str_toupper m_str_tolower
+UTILS_DIR  = $(SRC_DIR)utils/
+UTILS      = ft_printf_function ft_printf_function2 ft_printf_utils ft_printf_utils2
+
+SRC_FILES  += ft_printf
+SRC_FILES  += $(addprefix $(UTILS_DIR), $(UTILS))
 
 SRC         = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ         = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -24,13 +22,7 @@ OBJ_CACHE   = .cache_exists
 
 ###
 
-all: $(LIBFT) $(FTPRINTF) $(NAME)
-
-$(LIBFT):
-		@make -C $(LIBFT_DIR)
-
-$(FTPRINTF):
-		@make -C $(FTPRINTF_DIR)
+all: $(NAME)
 
 $(NAME): $(OBJ) | $(OBJ_CACHE)
 		$(AR) $(NAME) $(OBJ)
@@ -46,18 +38,16 @@ $(OBJ_CACHE):
 					@mkdir -p $(OBJ_DIR)
 
 clean:
-		@make clean -C $(LIBFT_DIR)
-		@make clean -C $(FTPRINTF_DIR)
 		$(RM) $(OBJ_DIR)
 		$(RM) $(OBJ_CACHE)
-		@echo "m_lib object files cleaned."
+		@echo "ft_printf object files cleaned."
 
 fclean: clean
 		$(RM) $(NAME)
-		@echo "m_lib archive files cleaned."
+		@echo "ft_printf archive files cleaned."
 
 re: fclean all
-		@echo "Cleaned and rebuilt everything for m_lib."
+		@echo "Cleaned and rebuilt everything for ft_printf."
 
 .PHONY: all clean fclean re
 
