@@ -2,10 +2,8 @@
 # define M_H
 
 # include "ft_printf.h"
+# include "get_next_line.h"
 # include "libft.h"
-# include <stdio.h>
-# include <stdlib.h>
-# include <unistd.h>
 
 # define M_IN_FILENO 0  /* Standard input.  */
 # define M_OUT_FILENO 1 /* Standard output.  */
