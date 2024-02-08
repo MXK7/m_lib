@@ -1,4 +1,4 @@
-NAME        = ft_printf.a
+NAME        = ft_gnl.a
 INCLUDES    = ./../../
 OBJ_DIR     = obj/
 SRC_DIR     = src/
@@ -9,11 +9,7 @@ AR          = ar rc
 RANLIB      = ranlib
 RM          = rm -rf
 
-UTILS_DIR   = utils/
-UTILS       = ft_printf_function ft_printf_function2 ft_printf_utils ft_printf_utils2
-
-SRC_FILES   += ft_printf
-SRC_FILES   += $(addprefix $(UTILS_DIR), $(UTILS))
+SRC_FILES   += get_next_line get_next_line_utils
 
 SRC         = $(addprefix $(SRC_DIR), $(addsuffix .c, $(SRC_FILES)))
 OBJ         = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
@@ -41,14 +37,14 @@ $(OBJ_CACHE):
 clean:
 		$(RM) $(OBJ_DIR)
 		$(RM) $(OBJ_CACHE)
-		@echo "ft_printf object files cleaned."
+		@echo "ft_gnl object files cleaned."
 
 fclean: clean
 		$(RM) $(NAME)
-		@echo "ft_printf archive files cleaned."
+		@echo "ft_gnl archive files cleaned."
 
 re: fclean all
-		@echo "Cleaned and rebuilt everything for ft_printf."
+		@echo "Cleaned and rebuilt everything for ft_gnl."
 
 .PHONY: all clean fclean re
 

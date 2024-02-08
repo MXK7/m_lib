@@ -1,87 +1,78 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: mpoussie <mpoussie@student.42.fr>          +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2023/04/12 16:02:49 by mpoussie          #+#    #+#              #
-#    Updated: 2024/02/07 21:39:12 by mpoussie         ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
+NAME        = libft.a
+INCLUDES    = ./../../
+OBJ_DIR     = obj/
+SRC_DIR     = src/
 
-NAME	=	libft.a
+CC          = gcc
+CFLAGS      = -Wall -Wextra -Werror -g3
+AR          = ar rc
+RANLIB      = ranlib
+RM          = rm -rf
 
-CC				= gcc
-RM				= rm -rf
-CFLAGS			= -Wall -Wextra -Werror -I ./../../
+FT_IS_DIR    = ft_is/
+FT_IS    	 = ft_isprint ft_isalpha ft_isascii ft_isdigit
 
-SRCS    		=	ft_is/ft_isalnum.c \
-					ft_is/ft_isprint.c \
-					ft_is/ft_isalpha.c \
-					ft_is/ft_isascii.c \
-					ft_is/ft_isdigit.c \
-					ft_mem/ft_memcpy.c \
-					ft_mem/ft_memcpy.c \
-					ft_mem/ft_memmove.c \
-					ft_mem/ft_memcmp.c \
-					ft_mem/ft_memset.c  \
-					ft_mem/ft_memchr.c \
-					ft_mem/ft_calloc.c \
-					ft_mem/ft_bzero.c \
-					ft_put/ft_putnbr_fd.c \
-					ft_put/ft_putendl_fd.c \
-					ft_put/ft_putstr_fd.c \
-					ft_put/ft_putchar_fd.c \
-					ft_to/ft_atoi.c \
-					ft_to/ft_itoa.c \
-					ft_to/ft_tolower.c \
-					ft_to/ft_toupper.c \
-					ft_str/ft_strchr.c \
-					ft_str/ft_strncmp.c \
-					ft_str/ft_strcmp.c \
-					ft_str/ft_strlcpy.c \
-					ft_str/ft_strdup.c \
-					ft_str/ft_strlen.c \
-					ft_str/ft_strrchr.c \
-					ft_str/ft_strcat.c \
-					ft_str/ft_strcpy.c \
-					ft_str/ft_strncat.c \
-					ft_str/ft_strnstr.c \
-					ft_str/ft_substr.c \
-					ft_str/ft_strmapi.c \
-					ft_str/ft_strjoin.c \
-					ft_str/ft_strtrim.c \
-					ft_str/ft_split.c \
-					ft_str/ft_strlcat.c \
-					ft_str/ft_striteri.c \
+FT_MEM_DIR   = ft_mem/
+FT_MEM   	 = ft_memcpy ft_memcpy ft_memmove ft_memcmp ft_memset ft_memchr ft_calloc ft_bzero
 
-OBJS			=	$(SRCS:.c=.o)
+FT_PUT_DIR   = ft_put/
+FT_PUT   	 = ft_putnbr_fd ft_putendl_fd ft_putstr_fd ft_putchar_fd
 
-BONUS			=	ft_lst/ft_lstnew.c \
-					ft_lst/ft_lstadd_front.c \
-					ft_lst/ft_lstlast.c \
-					ft_lst/ft_lstsize.c \
-					ft_lst/ft_lstadd_back.c \
-					ft_lst/ft_lstclear.c \
-					ft_lst/ft_lstdelone.c \
-					ft_lst/ft_lstiter.c \
-					ft_lst/ft_lstmap.c \
+FT_TO_DIR    = ft_to/
+FT_TO    	 = ft_atoi ft_itoa ft_tolower ft_toupper
 
-BONUS_OBJS		= 	$(BONUS:.c=.o)
+FT_STR_DIR   = ft_str/
+FT_STR   	 = ft_strchr ft_strncmp ft_strcmp ft_strlcpy ft_strdup ft_strlen ft_strrchr ft_strcat ft_strcpy ft_strncat ft_strnstr ft_substr ft_strmapi ft_strjoin ft_strtrim ft_split ft_strlcat ft_striteri
 
-all: ${NAME}
+FT_LST_DIR = ft_lst/
+FT_LST 	 = ft_lstnew ft_lstadd_front ft_lstlast ft_lstsize ft_lstadd_back ft_lstclear ft_lstdelone ft_lstiter ft_lstmap
 
-${NAME}:		${OBJS} $(BONUS_OBJS)
-				ar rcs $(NAME) ${OBJS}
+SRC_FILES   += $(addprefix $(FT_IS_DIR), $(FT_IS))
+SRC_FILES   += $(addprefix $(FT_MEM_DIR), $(FT_MEM))
+SRC_FILES   += $(addprefix $(FT_PUT_DIR), $(FT_PUT))
+SRC_FILES   += $(addprefix $(FT_STR_DIR), $(FT_STR))
+SRC_FILES   += $(addprefix $(FT_LST_DIR), $(FT_LST))
+
+SRC         = $(addsuffix .c, $(SRC_FILES))
+OBJ         = $(addprefix $(OBJ_DIR), $(addsuffix .o, $(SRC_FILES)))
+
+OBJ_CACHE   = .cache_exists
+
+###
+
+all: $(NAME)
+
+$(NAME): $(OBJ) | $(OBJ_CACHE)
+		$(AR) $(NAME) $(OBJ)
+		$(RANLIB) $(NAME)
+		@echo "\033[0;32m$(shell echo $(NAME) | tr '[:lower:]' '[:upper:]') : Archive created\033[0m"
+
+$(OBJ_DIR)%.o : %.c | $(OBJ_CACHE)
+		@echo "Compiling $<"
+		@$(CC) $(CFLAGS) -I$(INCLUDES) -c $< -o $@
+
+$(OBJ_CACHE):
+		@mkdir -p $(OBJ_DIR)
+		@mkdir -p $(OBJ_DIR)$(FT_IS_DIR)
+		@mkdir -p $(OBJ_DIR)$(FT_MEM_DIR)
+		@mkdir -p $(OBJ_DIR)$(FT_PUT_DIR)
+		@mkdir -p $(OBJ_DIR)$(FT_STR_DIR)
+		@mkdir -p $(OBJ_DIR)$(FT_TO_DIR)
+		@mkdir -p $(OBJ_DIR)$(FT_LST_DIR)
+		@touch $(OBJ_CACHE)
+
 clean:
-				$(RM) $(OBJS) $(BONUS_OBJS)
-fclean:			clean
-				$(RM) $(NAME)	
-bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
-re: fclean ${NAME}
+		$(RM) $(OBJ_DIR)
+		$(RM) $(OBJ_CACHE)
+		@echo "libft object files cleaned."
 
-.PHONY: all, clean, fclean, re
+fclean: clean
+		$(RM) $(NAME)
+		@echo "libft archive files cleaned."
+
+re: fclean all
+		@echo "Cleaned and rebuilt everything for libft."
+
+.PHONY: all clean fclean re
 
 .SILENT:
